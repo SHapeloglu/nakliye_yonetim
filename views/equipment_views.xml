@@ -1,0 +1,32 @@
+<odoo>
+    <!-- maintenance.equipment formuna zimmet bilgileri eklendi -->
+    <!-- inherit_id → Odoo'nun standart ekipman formuna ekleme yapılıyor -->
+    <record id="view_equipment_form_nakliye" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.nakliye</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Zimmet Bilgileri">
+                    <group>
+                        <group>
+                            <!-- Ekipmanın bağlı olduğu şantiye -->
+                            <field name="santiye_id"/>
+                            <!-- Zimmeti alan çalışan -->
+                            <field name="zimmet_alan_id"/>
+                            <field name="zimmet_durumu"/>
+                        </group>
+                        <group>
+                            <field name="zimmet_tarihi"/>
+                            <!-- İade tarihi dolunca zimmet kapanmış sayılır -->
+                            <field name="iade_tarihi"/>
+                        </group>
+                    </group>
+                    <group string="Notlar">
+                        <field name="zimmet_notu" nolabel="1"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

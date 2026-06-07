@@ -1,0 +1,23 @@
+<odoo>
+    <!-- Sözleşme bitiş tarihi kontrolü — her gün sabah çalışır -->
+    <record id="cron_sozlesme_bitis_kontrol" model="ir.cron">
+        <field name="name">Nakliye: Sözleşme Bitiş Tarihi Kontrolü</field>
+        <field name="model_id" ref="model_nakliye_sozlesme"/>
+        <field name="state">code</field>
+        <field name="code">model.action_bitis_kontrol()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Onay bekleyen hakediş hatırlatması — her gün çalışır -->
+    <record id="cron_hakedis_hatirlatma" model="ir.cron">
+        <field name="name">Nakliye: Onay Bekleyen Hakediş Hatırlatması</field>
+        <field name="model_id" ref="model_nakliye_hakedis"/>
+        <field name="state">code</field>
+        <field name="code">model.action_hakedis_hatirlatma()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

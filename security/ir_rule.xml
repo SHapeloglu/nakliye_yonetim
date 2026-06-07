@@ -1,0 +1,182 @@
+<odoo>
+    <!-- SAHA KURALLARI -->
+    <!-- Formen sadece atandığı sahaları görür -->
+    <!-- Kalıcı atama: saha.formen_ids içinde -->
+    <!-- Geçici atama: Faz sonunda eklenecek -->
+    <record id="rule_saha_formen" model="ir.rule">
+        <field name="name">Saha — Formen Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_saha"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_formen'))]"/>
+        <field name="domain_force">
+            [('formen_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Şantiye muhasebecisi sadece kendi şantiyesindeki sahaları görür -->
+    <record id="rule_saha_santiye_muhasebe" model="ir.rule">
+        <field name="name">Saha — Şantiye Muhasebecisi Erişimi</field>
+        <!-- nakliye_yonetim. prefix zorunlu — aynı modül içinde bile -->
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_saha"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_santiye_muhasebe'))]"/>
+        <field name="domain_force">
+            [('santiye_id.muhasebeci_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ŞANTIYE KURALLARI -->
+    <!-- Şantiye muhasebecisi sadece kendi şantiyesini görür -->
+    <record id="rule_santiye_muhasebe" model="ir.rule">
+        <field name="name">Şantiye — Muhasebeci Erişimi</field>
+        <!-- nakliye_yonetim. prefix zorunlu — aynı modül içinde bile -->
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_santiye"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_santiye_muhasebe'))]"/>
+        <field name="domain_force">
+            [('muhasebeci_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Muhasebe müdürü ve admin tüm kayıtları görür — kural yok -->
+    <!-- ir.rule tanımlanmayan gruplar tüm kayıtlara erişebilir -->
+    
+<!-- GÜNLÜK PLAN KURALLARI -->
+
+    <!-- Formen sadece kendi şantiyesindeki planları görür -->
+    <record id="rule_gunluk_plan_formen" model="ir.rule">
+        <field name="name">Günlük Plan — Formen Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_gunluk_plan"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_formen'))]"/>
+        <field name="domain_force">
+            [('saha_id.formen_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Şantiye muhasebecisi sadece kendi şantiyesindeki planları görür -->
+    <record id="rule_gunluk_plan_santiye_muhasebe" model="ir.rule">
+        <field name="name">Günlük Plan — Şantiye Muhasebecisi Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_gunluk_plan"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_santiye_muhasebe'))]"/>
+        <field name="domain_force">
+            [('santiye_id.muhasebeci_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- DÖKÜM FİŞİ KURALLARI -->
+
+    <record id="rule_dokum_fisi_formen" model="ir.rule">
+        <field name="name">Döküm Fişi — Formen Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_dokum_fisi"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_formen'))]"/>
+        <field name="domain_force">
+            [('saha_id.formen_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_dokum_fisi_santiye_muhasebe" model="ir.rule">
+        <field name="name">Döküm Fişi — Şantiye Muhasebecisi Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_dokum_fisi"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_santiye_muhasebe'))]"/>
+        <field name="domain_force">
+            [('santiye_id.muhasebeci_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- KANTAR FİŞİ KURALLARI -->
+
+    <record id="rule_kantar_fisi_formen" model="ir.rule">
+        <field name="name">Kantar Fişi — Formen Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_kantar_fisi"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_formen'))]"/>
+        <field name="domain_force">
+            [('saha_id.formen_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_kantar_fisi_santiye_muhasebe" model="ir.rule">
+        <field name="name">Kantar Fişi — Şantiye Muhasebecisi Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_kantar_fisi"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_santiye_muhasebe'))]"/>
+        <field name="domain_force">
+            [('santiye_id.muhasebeci_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- YAKIT FİŞİ KURALLARI -->
+
+    <record id="rule_yakit_fisi_formen" model="ir.rule">
+        <field name="name">Yakıt Fişi — Formen Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_yakit_fisi"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_formen'))]"/>
+        <field name="domain_force">
+            [('santiye_id', 'in', user.employee_ids.mapped('aktif_santiye_id').ids)]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_yakit_fisi_santiye_muhasebe" model="ir.rule">
+        <field name="name">Yakıt Fişi — Şantiye Muhasebecisi Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_yakit_fisi"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_santiye_muhasebe'))]"/>
+        <field name="domain_force">
+            [('santiye_id.muhasebeci_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- HAKEDİŞ KURALLARI -->
+
+    <record id="rule_hakedis_santiye_muhasebe" model="ir.rule">
+        <field name="name">Hakediş — Şantiye Muhasebecisi Erişimi</field>
+        <field name="model_id" ref="nakliye_yonetim.model_nakliye_hakedis"/>
+        <field name="groups" eval="[(4, ref('group_nakliye_santiye_muhasebe'))]"/>
+        <field name="domain_force">
+            [('santiye_id.muhasebeci_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+</odoo>

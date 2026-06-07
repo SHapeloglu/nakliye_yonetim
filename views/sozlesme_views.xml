@@ -1,0 +1,71 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_sozlesme_form" model="ir.ui.view">
+        <field name="name">nakliye.sozlesme.form</field>
+        <field name="model">nakliye.sozlesme</field>
+        <field name="arch" type="xml">
+            <form string="Nakliyeci-Şantiye Sözleşmesi">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="nakliyeci_id"/>
+                            <field name="arac_id"/>
+                            <field name="santiye_id"/>
+                        </group>
+                        <group>
+                            <field name="baslangic_tarihi"/>
+                            <field name="bitis_tarihi"/>
+                            <field name="aktif"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lokasyon Bazlı Fiyatlar">
+                            <field name="satir_ids">
+                                <list editable="bottom">
+                                    <field name="lokasyon_tipi"/>
+                                    <field name="lokasyon_id"/>
+                                    <field name="km_birim_fiyat_dolu"/>
+                                    <field name="km_birim_fiyat_bos"/>
+                                    <field name="notlar"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notlar">
+                            <field name="notlar"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_sozlesme_list" model="ir.ui.view">
+        <field name="name">nakliye.sozlesme.list</field>
+        <field name="model">nakliye.sozlesme</field>
+        <field name="arch" type="xml">
+            <list string="Sözleşmeler">
+                <field name="nakliyeci_id"/>
+                <field name="arac_id"/>
+                <field name="santiye_id"/>
+                <field name="baslangic_tarihi"/>
+                <field name="bitis_tarihi"/>
+                <field name="aktif"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_sozlesme" model="ir.actions.act_window">
+        <field name="name">Sözleşmeler</field>
+        <field name="res_model">nakliye.sozlesme</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_sozlesme"
+              name="Sözleşmeler"
+              parent="menu_tanimlamalar"
+              action="action_sozlesme"
+              sequence="30"/>
+</odoo>

@@ -1,0 +1,79 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_dokum_fisi_form" model="ir.ui.view">
+        <field name="name">nakliye.dokum.fisi.form</field>
+        <field name="model">nakliye.dokum.fisi</field>
+        <field name="arch" type="xml">
+            <form string="Döküm Fişi">
+                <header>
+                    <!-- İş akışı butonları — duruma göre görünür/gizlenir -->
+                    <button name="action_onayla" string="Onayla"
+                            type="object" class="btn-primary"
+                            invisible="durum != 'taslak'"/>
+                    <button name="action_iptal" string="İptal Et"
+                            type="object" class="btn-danger"
+                            invisible="durum == 'iptal'"/>
+                    <!-- statusbar → durum geçişini görsel olarak gösterir -->
+                    <field name="durum" widget="statusbar"
+                           statusbar_visible="taslak,onaylandi,iptal"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <!-- plan_satir_id seçilince santiye, saha, araç otomatik gelir -->
+                            <field name="plan_satir_id"/>
+                            <field name="santiye_id" readonly="1"/>
+                            <field name="saha_id" readonly="1"/>
+                            <field name="arac_id" readonly="1"/>
+                            <field name="tarih" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="gidis_km"/>
+                            <field name="donus_km"/>
+                            <!-- toplam_km hesaplanmış alan — kullanıcı değiştiremez -->
+                            <field name="toplam_km" readonly="1"/>
+                            <field name="dokum_yeri_id"/>
+                        </group>
+                    </group>
+                    <group string="Notlar">
+                        <field name="notlar" nolabel="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_dokum_fisi_list" model="ir.ui.view">
+        <field name="name">nakliye.dokum.fisi.list</field>
+        <field name="model">nakliye.dokum.fisi</field>
+        <field name="arch" type="xml">
+            <list string="Döküm Fişleri">
+                <field name="tarih"/>
+                <field name="santiye_id"/>
+                <field name="saha_id"/>
+                <field name="arac_id"/>
+                <field name="gidis_km"/>
+                <field name="donus_km"/>
+                <field name="toplam_km"/>
+                <field name="durum"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_dokum_fisi" model="ir.actions.act_window">
+        <field name="name">Döküm Fişleri</field>
+        <field name="res_model">nakliye.dokum.fisi</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menü — Operasyon altına eklenir -->
+    <menuitem id="menu_dokum_fisi"
+              name="Döküm Fişleri"
+              parent="menu_operasyon"
+              action="action_dokum_fisi"
+              sequence="20"
+              groups="nakliye_yonetim.group_nakliye_formen"/>
+</odoo>

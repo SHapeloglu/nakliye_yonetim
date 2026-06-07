@@ -1,0 +1,77 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_yakit_fisi_form" model="ir.ui.view">
+        <field name="name">nakliye.yakit.fisi.form</field>
+        <field name="model">nakliye.yakit.fisi</field>
+        <field name="arch" type="xml">
+            <form string="Yakıt Fişi">
+                <header>
+                    <!-- İş akışı butonları — duruma göre görünür/gizlenir -->
+                    <button name="action_onayla" string="Onayla"
+                            type="object" class="btn-primary"
+                            invisible="durum != 'taslak'"/>
+                    <button name="action_iptal" string="İptal Et"
+                            type="object" class="btn-danger"
+                            invisible="durum == 'iptal'"/>
+                    <field name="durum" widget="statusbar"
+                           statusbar_visible="taslak,onaylandi,iptal"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <!-- plan_satir_id seçilince araç, şantiye, tarih otomatik gelir -->
+                            <field name="plan_satir_id"/>
+                            <field name="santiye_id" readonly="1"/>
+                            <field name="arac_id" readonly="1"/>
+                            <field name="tarih" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="istasyon_id"/>
+                            <field name="fis_no"/>
+                            <field name="litre"/>
+                            <field name="birim_fiyat"/>
+                            <!-- Hesaplanmış alan — kullanıcı değiştiremez -->
+                            <field name="toplam_tutar" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Notlar">
+                        <field name="notlar" nolabel="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_yakit_fisi_list" model="ir.ui.view">
+        <field name="name">nakliye.yakit.fisi.list</field>
+        <field name="model">nakliye.yakit.fisi</field>
+        <field name="arch" type="xml">
+            <list string="Yakıt Fişleri">
+                <field name="tarih"/>
+                <field name="santiye_id"/>
+                <field name="arac_id"/>
+                <field name="istasyon_id"/>
+                <field name="litre"/>
+                <field name="toplam_tutar"/>
+                <field name="durum"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_yakit_fisi" model="ir.actions.act_window">
+        <field name="name">Yakıt Fişleri</field>
+        <field name="res_model">nakliye.yakit.fisi</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menü — Operasyon altına eklenir -->
+    <menuitem id="menu_yakit_fisi"
+              name="Yakıt Fişleri"
+              parent="menu_operasyon"
+              action="action_yakit_fisi"
+              sequence="40"
+              groups="nakliye_yonetim.group_nakliye_formen"/>
+</odoo>

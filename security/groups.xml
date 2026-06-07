@@ -1,0 +1,53 @@
+<odoo>
+    <!-- Nakliye Yönetim modülü için grup kategorisi -->
+    <record id="module_category_nakliye" model="ir.module.category">
+        <field name="name">Nakliye Yönetim</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <!-- Temel grup — sadece atanmış sahalara erişim -->
+    <record id="group_nakliye_formen" model="res.groups">
+        <field name="name">Formen</field>
+        <field name="category_id" ref="module_category_nakliye"/>
+        <field name="comment">Günlük plan, döküm/yakıt/yemek fişi — sadece atanmış sahalar</field>
+    </record>
+
+    <!-- Formen yetkilerini miras alır + geçici saha ataması yapabilir -->
+    <record id="group_nakliye_yonetici_formen" model="res.groups">
+        <field name="name">Yönetici Formen</field>
+        <field name="category_id" ref="module_category_nakliye"/>
+        <field name="implied_ids" eval="[(4, ref('group_nakliye_formen'))]"/>
+        <field name="comment">Formen yetkisi + kendi sahası kapsamında geçici atama</field>
+    </record>
+
+    <!-- Formen yetkilerini miras alır + şantiye bazlı muhasebe işlemleri -->
+    <record id="group_nakliye_santiye_muhasebe" model="res.groups">
+        <field name="name">Şantiye Muhasebecisi</field>
+        <field name="category_id" ref="module_category_nakliye"/>
+        <field name="implied_ids" eval="[(4, ref('group_nakliye_formen'))]"/>
+        <field name="comment">Kantar fişi, hakediş, tüm fişler — sadece kendi şantiyesi</field>
+    </record>
+
+    <!-- Şantiye muhasebecisi yetkilerini miras alır + tüm şantiyeler -->
+    <record id="group_nakliye_muhasebe_muduru" model="res.groups">
+        <field name="name">Muhasebe Müdürü</field>
+        <field name="category_id" ref="module_category_nakliye"/>
+        <field name="implied_ids" eval="[(4, ref('group_nakliye_santiye_muhasebe'))]"/>
+        <field name="comment">Tüm şantiyeler muhasebe + konsolide raporlar</field>
+    </record>
+
+    <!-- Sadece okuma yetkisi — tüm şantiyeler -->
+    <record id="group_nakliye_yonetim" model="res.groups">
+        <field name="name">Yönetim</field>
+        <field name="category_id" ref="module_category_nakliye"/>
+        <field name="comment">Tüm şantiyeler okuma + konsolide raporlar</field>
+    </record>
+
+    <!-- Muhasebe müdürü yetkilerini miras alır + tam erişim -->
+    <record id="group_nakliye_admin" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="category_id" ref="module_category_nakliye"/>
+        <field name="implied_ids" eval="[(4, ref('group_nakliye_muhasebe_muduru'))]"/>
+        <field name="comment">Tam erişim + tanımlamalar + ayarlar</field>
+    </record>
+</odoo>

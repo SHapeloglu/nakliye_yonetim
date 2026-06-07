@@ -1,0 +1,50 @@
+<odoo>
+    <!-- Wizard Form View -->
+    <record id="view_hakedis_wizard_form" model="ir.ui.view">
+        <field name="name">nakliye.hakedis.wizard.form</field>
+        <field name="model">nakliye.hakedis.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Hakediş Oluştur">
+                <group>
+                    <group string="Dönem">
+                        <field name="donem_baslangic"/>
+                        <field name="donem_bitis"/>
+                    </group>
+                    <group string="Taraflar">
+                        <field name="santiye_id"/>
+                        <field name="nakliyeci_id"/>
+                        <field name="arac_id"/>
+                        <field name="tevkifat_orani"/>
+                    </group>
+                </group>
+                <footer>
+                    <!-- Wizard butonu — tıklanınca action_hakedis_olustur çalışır -->
+                    <button name="action_hakedis_olustur"
+                            string="Hakediş Oluştur"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="İptal"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard Action -->
+    <record id="action_hakedis_wizard" model="ir.actions.act_window">
+        <field name="name">Hakediş Oluştur</field>
+        <field name="res_model">nakliye.hakedis.wizard</field>
+        <field name="view_mode">form</field>
+        <!-- target=new → popup pencere olarak açılır -->
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menü -->
+    <menuitem id="menu_hakedis_wizard"
+              name="Hakediş Oluştur"
+              parent="menu_muhasebe"
+              action="action_hakedis_wizard"
+              sequence="5"
+              groups="nakliye_yonetim.group_nakliye_santiye_muhasebe"/>
+</odoo>

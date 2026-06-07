@@ -1,0 +1,47 @@
+<odoo>
+    <!-- Ayarlar Form View -->
+    <record id="view_nakliye_ayarlar_form" model="ir.ui.view">
+        <field name="name">nakliye.ayarlar.form</field>
+        <field name="model">nakliye.ayarlar</field>
+        <field name="arch" type="xml">
+            <form string="Nakliye Ayarları">
+                <sheet>
+                    <group string="Finansal Ayarlar">
+                        <!-- Tevkifat oranı — kanunla belirlenir -->
+                        <field name="tevkifat_orani"/>
+                        <!-- Yemek bedeli — puantaj satırlarına otomatik gelir -->
+                        <field name="yemek_bedeli"/>
+                    </group>
+                    <group string="Bildirim Ayarları">
+                        <!-- Sözleşme bitiş uyarı süresi -->
+                        <field name="sozlesme_uyari_gun"/>
+                        <!-- Hakediş hatırlatma süresi -->
+                        <field name="hakedis_hatirlatma_gun"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="kaydet" string="Kaydet"
+                            type="object" class="btn-primary"/>
+                    <button string="İptal" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_nakliye_ayarlar" model="ir.actions.act_window">
+        <field name="name">Nakliye Ayarları</field>
+        <field name="res_model">nakliye.ayarlar</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menü — sadece admin görür -->
+    <menuitem id="menu_ayarlar"
+              name="Ayarlar"
+              parent="menu_nakliye_root"
+              action="action_nakliye_ayarlar"
+              sequence="100"
+              groups="nakliye_yonetim.group_nakliye_admin"/>
+</odoo>

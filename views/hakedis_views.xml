@@ -1,0 +1,114 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_hakedis_form" model="ir.ui.view">
+        <field name="name">nakliye.hakedis.form</field>
+        <field name="model">nakliye.hakedis</field>
+        <field name="arch" type="xml">
+            <form string="Hakediş">
+                <header>
+                    <!-- Onay akışı butonları — duruma göre görünür/gizlenir -->
+                    <button name="action_onaya_gonder" string="Onaya Gönder"
+                            type="object" class="btn-primary"
+                            invisible="durum != 'taslak'"/>
+                    <button name="action_onayla" string="Onayla"
+                            type="object" class="btn-primary"
+                            invisible="durum != 'onay_bekliyor'"/>
+                    <button name="action_odendi" string="Ödendi"
+                            type="object" class="btn-success"
+                            invisible="durum != 'onaylandi'"/>
+                    <button name="action_iptal" string="İptal Et"
+                            type="object" class="btn-danger"
+                            invisible="durum in ['odendi', 'iptal']"/>
+                    <!-- statusbar → onay akışını görsel olarak gösterir -->
+                    <field name="durum" widget="statusbar"
+                           statusbar_visible="taslak,onay_bekliyor,onaylandi,odendi"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="nakliyeci_id"/>
+                            <field name="arac_id"/>
+                            <field name="santiye_id"/>
+                        </group>
+                        <group>
+                            <field name="donem_baslangic"/>
+                            <field name="donem_bitis"/>
+                            <field name="tevkifat_orani"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Hakediş Satırları">
+                            <!-- Wizard tarafından otomatik oluşturulan satırlar -->
+                            <field name="satir_ids">
+                                <list>
+                                    <field name="tarih"/>
+                                    <field name="satir_tipi"/>
+                                    <field name="dokum_fisi_id"/>
+                                    <field name="gidis_km"/>
+                                    <field name="donus_km"/>
+                                    <field name="toplam_km"/>
+                                    <field name="km_fiyat_dolu"/>
+                                    <field name="km_fiyat_bos"/>
+                                    <field name="tutar"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Özet">
+                            <!-- Hesaplanmış özet tutarlar -->
+                            <group>
+                                <field name="toplam_km" readonly="1"/>
+                                <field name="brut_tutar" readonly="1"/>
+                                <field name="tevkifat_tutari" readonly="1"/>
+                                <field name="net_tutar" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Notlar">
+                            <field name="notlar" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_hakedis_list" model="ir.ui.view">
+        <field name="name">nakliye.hakedis.list</field>
+        <field name="model">nakliye.hakedis</field>
+        <field name="arch" type="xml">
+            <list string="Hakedişler">
+                <field name="donem_baslangic"/>
+                <field name="donem_bitis"/>
+                <field name="nakliyeci_id"/>
+                <field name="arac_id"/>
+                <field name="santiye_id"/>
+                <field name="brut_tutar"/>
+                <field name="tevkifat_tutari"/>
+                <field name="net_tutar"/>
+                <field name="durum"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hakedis" model="ir.actions.act_window">
+        <field name="name">Hakedişler</field>
+        <field name="res_model">nakliye.hakedis</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menü — Muhasebe altına eklenir -->
+    <menuitem id="menu_muhasebe"
+              name="Muhasebe"
+              parent="menu_nakliye_root"
+              sequence="30"
+              groups="nakliye_yonetim.group_nakliye_santiye_muhasebe"/>
+
+    <menuitem id="menu_hakedis"
+              name="Hakedişler"
+              parent="menu_muhasebe"
+              action="action_hakedis"
+              sequence="10"
+              groups="nakliye_yonetim.group_nakliye_santiye_muhasebe"/>
+</odoo>

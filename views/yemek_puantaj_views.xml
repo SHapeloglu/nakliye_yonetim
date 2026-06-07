@@ -1,0 +1,106 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_yemek_puantaj_form" model="ir.ui.view">
+        <field name="name">nakliye.yemek.puantaj.form</field>
+        <field name="model">nakliye.yemek.puantaj</field>
+        <field name="arch" type="xml">
+            <form string="Günlük Yemek Puantajı">
+                <header>
+                    <button name="action_onayla" string="Onayla"
+                            type="object" class="btn-primary"
+                            invisible="durum != 'taslak'"/>
+                    <button name="action_iptal" string="İptal Et"
+                            type="object" class="btn-danger"
+                            invisible="durum == 'iptal'"/>
+                    <field name="durum" widget="statusbar"
+                           statusbar_visible="taslak,onaylandi,iptal"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="tarih"/>
+                            <field name="santiye_id"/>
+                            <!-- plan_id → şantiye seçilince aktif plan otomatik gelir -->
+                            <field name="plan_id"/>
+                            <field name="yemek_firmasi_id"/>
+                        </group>
+                        <group>
+                            <!-- Hesaplanmış özet alanlar — kullanıcı değiştiremez -->
+                            <field name="toplam_personel" readonly="1"/>
+                            <field name="toplam_taseron_sofor" readonly="1"/>
+                            <field name="toplam_taseron_isci" readonly="1"/>
+                            <field name="toplam_yemek" readonly="1"/>
+                            <field name="toplam_tutar" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Puantaj Satırları">
+                            <!-- Plandan otomatik kopyalanır — formen adet değiştirebilir -->
+                                    <field name="satir_ids">
+                                    <list editable="bottom">
+                                    <field name="satir_tipi"/>
+                                    <!-- Firma içi işçi -->
+                                    <field name="isci_id"
+                                    invisible="satir_tipi != 'firma_isci'"/>
+                                    <!-- Personel -->
+                                    <field name="personel_id"
+                                    invisible="satir_tipi != 'personel'"/>
+                                    <!-- Taşeron nakliye — önce firma, sonra araç, sonra şoför -->
+                                    <field name="nakliye_firma_id"
+                                    invisible="satir_tipi != 'taseron_nakliye'"/>
+                                    <field name="arac_id"
+                                    invisible="satir_tipi != 'taseron_nakliye'"/>
+                                    <field name="sofor_adi"
+                                    invisible="satir_tipi != 'taseron_nakliye'"
+                                    readonly="1"/>
+                                    <!-- Taşeron işçi — önce firma, sonra işçi -->
+                                    <field name="taseron_firma_id"
+                                    invisible="satir_tipi != 'taseron_isci'"/>
+                                    <field name="taseron_isci_id"
+                                    invisible="satir_tipi != 'taseron_isci'"/>
+                                    <field name="adet"/>
+                                    <field name="yemek_bedeli"/>
+                                    <field name="tutar" readonly="1"/>
+                                    <field name="notlar"/>
+                                    </list>
+                                    </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_yemek_puantaj_list" model="ir.ui.view">
+        <field name="name">nakliye.yemek.puantaj.list</field>
+        <field name="model">nakliye.yemek.puantaj</field>
+        <field name="arch" type="xml">
+            <list string="Yemek Puantajları">
+                <field name="tarih"/>
+                <field name="santiye_id"/>
+                <field name="plan_id"/>
+                <field name="yemek_firmasi_id"/>
+                <field name="toplam_yemek"/>
+                <field name="toplam_tutar"/>
+                <field name="durum"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_yemek_puantaj" model="ir.actions.act_window">
+        <field name="name">Yemek Puantajları</field>
+        <field name="res_model">nakliye.yemek.puantaj</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menü -->
+    <menuitem id="menu_yemek_puantaj"
+              name="Yemek Puantajları"
+              parent="menu_operasyon"
+              action="action_yemek_puantaj"
+              sequence="50"
+              groups="nakliye_yonetim.group_nakliye_formen"/>
+</odoo>

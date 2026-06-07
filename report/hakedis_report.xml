@@ -1,0 +1,99 @@
+<odoo>
+    <!-- Rapor action tanımı — Hakediş formunda "Yazdır" butonu bu action'ı çalıştırır -->
+    <record id="action_report_hakedis" model="ir.actions.report">
+        <field name="name">Hakediş Raporu</field>
+        <field name="model">nakliye.hakedis</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">nakliye_yonetim.report_hakedis_template</field>
+        <field name="report_file">nakliye_yonetim.report_hakedis_template</field>
+        <field name="binding_model_id" ref="model_nakliye_hakedis"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- QWeb şablonu — PDF içeriği burada tanımlanır -->
+    <template id="report_hakedis_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- Rapor başlığı -->
+                        <h2 class="text-center">HAKEDİŞ RAPORU</h2>
+
+                        <!-- Hakediş bilgileri -->
+                        <table class="table table-bordered mt-4">
+                            <tr>
+                                <td><strong>Nakliyeci:</strong></td>
+                                <td><t t-esc="doc.nakliyeci_id.name"/></td>
+                                <td><strong>Araç:</strong></td>
+                                <td><t t-esc="doc.arac_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Şantiye:</strong></td>
+                                <td><t t-esc="doc.santiye_id.name"/></td>
+                                <td><strong>Durum:</strong></td>
+                                <td><t t-esc="doc.durum"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dönem Başlangıç:</strong></td>
+                                <td><t t-esc="doc.donem_baslangic"/></td>
+                                <td><strong>Dönem Bitiş:</strong></td>
+                                <td><t t-esc="doc.donem_bitis"/></td>
+                            </tr>
+                        </table>
+
+                        <!-- Hakediş satırları -->
+                        <h4 class="mt-4">Hakediş Detayı</h4>
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Tarih</th>
+                                    <th>Tip</th>
+                                    <th>Gidiş Km</th>
+                                    <th>Dönüş Km</th>
+                                    <th>Toplam Km</th>
+                                    <th>Dolu Fiyat</th>
+                                    <th>Boş Fiyat</th>
+                                    <th>Tutar (TL)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.satir_ids" t-as="satir">
+                                    <tr>
+                                        <td><t t-esc="satir.tarih"/></td>
+                                        <td><t t-esc="satir.satir_tipi"/></td>
+                                        <td><t t-esc="satir.gidis_km"/></td>
+                                        <td><t t-esc="satir.donus_km"/></td>
+                                        <td><t t-esc="satir.toplam_km"/></td>
+                                        <td><t t-esc="satir.km_fiyat_dolu"/></td>
+                                        <td><t t-esc="satir.km_fiyat_bos"/></td>
+                                        <td><t t-esc="satir.tutar"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Özet tutarlar -->
+                        <table class="table table-bordered mt-4" style="width: 50%; float: right;">
+                            <tr>
+                                <td><strong>Toplam Km:</strong></td>
+                                <td class="text-right"><t t-esc="doc.toplam_km"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brüt Tutar:</strong></td>
+                                <td class="text-right"><t t-esc="doc.brut_tutar"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tevkifat (<t t-esc="doc.tevkifat_orani"/>%):</strong></td>
+                                <td class="text-right"><t t-esc="doc.tevkifat_tutari"/></td>
+                            </tr>
+                            <tr class="table-success">
+                                <td><strong>Net Tutar:</strong></td>
+                                <td class="text-right"><strong><t t-esc="doc.net_tutar"/></strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

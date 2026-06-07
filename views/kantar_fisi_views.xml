@@ -1,0 +1,86 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_kantar_fisi_form" model="ir.ui.view">
+        <field name="name">nakliye.kantar.fisi.form</field>
+        <field name="model">nakliye.kantar.fisi</field>
+        <field name="arch" type="xml">
+            <form string="Kantar Fişi">
+                <header>
+                    <!-- İş akışı butonları — duruma göre görünür/gizlenir -->
+                    <button name="action_onayla" string="Onayla"
+                            type="object" class="btn-primary"
+                            invisible="durum != 'taslak'"/>
+                    <button name="action_iptal" string="İptal Et"
+                            type="object" class="btn-danger"
+                            invisible="durum == 'iptal'"/>
+                    <field name="durum" widget="statusbar"
+                           statusbar_visible="taslak,onaylandi,iptal"/>
+                </header>
+                <sheet>
+                    <!-- Tonaj aşımı uyarısı — kırmızı banner -->
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not tonaj_asimi">
+                        ⚠️ Tonaj Aşımı! Aşım: <field name="asim_miktari_ton"/> ton — Nakliyeci sorumludur.
+                    </div>
+                    <group>
+                        <group>
+                            <!-- plan_satir_id seçilince araç, şantiye, tarih otomatik gelir -->
+                            <field name="plan_satir_id"/>
+                            <field name="santiye_id" readonly="1"/>
+                            <field name="arac_id" readonly="1"/>
+                            <field name="tarih" readonly="1"/>
+                            <field name="tedarikci_id"/>
+                            <field name="fis_no"/>
+                        </group>
+                        <group>
+                            <field name="tara_kg"/>
+                            <field name="brut_kg"/>
+                            <!-- Hesaplanmış alanlar — kullanıcı değiştiremez -->
+                            <field name="net_kg" readonly="1"/>
+                            <field name="net_ton" readonly="1"/>
+                            <field name="tonaj_asimi" readonly="1"/>
+                            <field name="asim_miktari_ton" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Notlar">
+                        <field name="notlar" nolabel="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_kantar_fisi_list" model="ir.ui.view">
+        <field name="name">nakliye.kantar.fisi.list</field>
+        <field name="model">nakliye.kantar.fisi</field>
+        <field name="arch" type="xml">
+            <list string="Kantar Fişleri">
+                <field name="tarih"/>
+                <field name="santiye_id"/>
+                <field name="arac_id"/>
+                <field name="tedarikci_id"/>
+                <field name="net_ton"/>
+                <!-- Tonaj aşımı varsa listede görünsün -->
+                <field name="tonaj_asimi"/>
+                <field name="durum"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_kantar_fisi" model="ir.actions.act_window">
+        <field name="name">Kantar Fişleri</field>
+        <field name="res_model">nakliye.kantar.fisi</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menü — Operasyon altına eklenir -->
+    <menuitem id="menu_kantar_fisi"
+              name="Kantar Fişleri"
+              parent="menu_operasyon"
+              action="action_kantar_fisi"
+              sequence="30"
+              groups="nakliye_yonetim.group_nakliye_formen"/>
+</odoo>

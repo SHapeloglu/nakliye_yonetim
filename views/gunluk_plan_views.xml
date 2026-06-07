@@ -1,0 +1,90 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_gunluk_plan_form" model="ir.ui.view">
+        <field name="name">nakliye.gunluk.plan.form</field>
+        <field name="model">nakliye.gunluk.plan</field>
+        <field name="arch" type="xml">
+            <form string="Günlük Plan">
+                <header>
+                    <!-- Durum butonu — iş akışı buradan yönetilir -->
+                    <button name="action_onayla" string="Onayla"
+                            type="object" class="btn-primary"
+                            invisible="durum != 'taslak'"/>
+                    <button name="action_kapat" string="Kapat"
+                            type="object"
+                            invisible="durum != 'onaylandi'"/>
+                    <field name="durum" widget="statusbar"
+                           statusbar_visible="taslak,onaylandi,kapali"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="tarih"/>
+                            <field name="santiye_id"/>
+                            <field name="saha_id"/>
+                        </group>
+                        <group>
+                            <field name="formen_id"/>
+                            <field name="durum"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Plan Satırları">
+                            <field name="satir_ids">
+                                <list editable="bottom">
+                                    <field name="arac_id"/>
+                                    <field name="sofor_id"/>
+                                    <field name="gorev_tipi"/>
+                                    <field name="kazi_yeri"/>
+                                    <field name="dokum_yeri_id"/>
+                                    <field name="tedarikci_id"/>
+                                    <field name="plan_km_gidis"/>
+                                    <field name="plan_km_donus"/>
+                                    <field name="sefer_tipi"/>
+                                    <field name="notlar"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_gunluk_plan_list" model="ir.ui.view">
+        <field name="name">nakliye.gunluk.plan.list</field>
+        <field name="model">nakliye.gunluk.plan</field>
+        <field name="arch" type="xml">
+            <list string="Günlük Planlar">
+                <field name="tarih"/>
+                <field name="santiye_id"/>
+                <field name="saha_id"/>
+                <field name="formen_id"/>
+                <field name="durum"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_gunluk_plan" model="ir.actions.act_window">
+        <field name="name">Günlük Planlar</field>
+        <field name="res_model">nakliye.gunluk.plan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menü -->
+    <menuitem id="menu_operasyon"
+              name="Operasyon"
+              parent="menu_nakliye_root"
+              sequence="20"
+              groups="nakliye_yonetim.group_nakliye_formen"/>
+
+    <menuitem id="menu_gunluk_plan"
+              name="Günlük Planlar"
+              parent="menu_operasyon"
+              action="action_gunluk_plan"
+              sequence="10"
+              groups="nakliye_yonetim.group_nakliye_formen"/>
+</odoo>
