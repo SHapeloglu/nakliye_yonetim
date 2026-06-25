@@ -56,7 +56,7 @@
         <field name="name">nakliye.kantar.fisi.list</field>
         <field name="model">nakliye.kantar.fisi</field>
         <field name="arch" type="xml">
-            <list string="Kantar Fişleri">
+            <tree string="Kantar Fişleri">
                 <field name="tarih"/>
                 <field name="santiye_id"/>
                 <field name="arac_id"/>
@@ -65,7 +65,7 @@
                 <!-- Tonaj aşımı varsa listede görünsün -->
                 <field name="tonaj_asimi"/>
                 <field name="durum"/>
-            </list>
+            </tree>
         </field>
     </record>
 

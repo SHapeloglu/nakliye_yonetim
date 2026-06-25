@@ -49,7 +49,7 @@
         <field name="name">nakliye.dokum.fisi.list</field>
         <field name="model">nakliye.dokum.fisi</field>
         <field name="arch" type="xml">
-            <list string="Döküm Fişleri">
+            <tree string="Döküm Fişleri">
                 <field name="tarih"/>
                 <field name="santiye_id"/>
                 <field name="saha_id"/>
@@ -58,7 +58,7 @@
                 <field name="donus_km"/>
                 <field name="toplam_km"/>
                 <field name="durum"/>
-            </list>
+            </tree>
         </field>
     </record>
 

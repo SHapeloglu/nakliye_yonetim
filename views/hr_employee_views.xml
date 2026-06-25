@@ -20,14 +20,14 @@
                     <group string="Şantiye Atama Geçmişi">
                         <field name="santiye_atama_ids">
                             <!-- One2many alanı liste olarak gösteriliyor -->
-                            <list>
+                            <tree>
                                 <field name="santiye_id"/>
                                 <field name="baslangic_tarihi"/>
                                 <field name="bitis_tarihi"/>
                                 <field name="gecis_nedeni"/>
                                 <field name="aktif"/>
                                 <field name="notlar"/>
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </page>

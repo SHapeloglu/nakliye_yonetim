@@ -21,13 +21,13 @@
                     <notebook>
                         <page string="Lokasyon Bazlı Fiyatlar">
                             <field name="satir_ids">
-                                <list editable="bottom">
+                                <tree editable="bottom">
                                     <field name="lokasyon_tipi"/>
                                     <field name="lokasyon_id"/>
                                     <field name="km_birim_fiyat_dolu"/>
                                     <field name="km_birim_fiyat_bos"/>
                                     <field name="notlar"/>
-                                </list>
+                                </tree>
                             </field>
                         </page>
                         <page string="Notlar">
@@ -45,14 +45,14 @@
         <field name="name">nakliye.sozlesme.list</field>
         <field name="model">nakliye.sozlesme</field>
         <field name="arch" type="xml">
-            <list string="Sözleşmeler">
+            <tree string="Sözleşmeler">
                 <field name="nakliyeci_id"/>
                 <field name="arac_id"/>
                 <field name="santiye_id"/>
                 <field name="baslangic_tarihi"/>
                 <field name="bitis_tarihi"/>
                 <field name="aktif"/>
-            </list>
+            </tree>
         </field>
     </record>
 

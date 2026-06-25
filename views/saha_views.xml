@@ -29,11 +29,11 @@
         <field name="name">nakliye.saha.list</field>
         <field name="model">nakliye.saha</field>
         <field name="arch" type="xml">
-            <list string="Sahalar">
+            <tree string="Sahalar">
                 <field name="name"/>
                 <field name="santiye_id"/>
                 <field name="aktif"/>
-            </list>
+            </tree>
         </field>
     </record>
 

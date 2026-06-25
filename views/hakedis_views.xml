@@ -40,7 +40,7 @@
                         <page string="Hakediş Satırları">
                             <!-- Wizard tarafından otomatik oluşturulan satırlar -->
                             <field name="satir_ids">
-                                <list>
+                                <tree>
                                     <field name="tarih"/>
                                     <field name="satir_tipi"/>
                                     <field name="dokum_fisi_id"/>
@@ -50,7 +50,7 @@
                                     <field name="km_fiyat_dolu"/>
                                     <field name="km_fiyat_bos"/>
                                     <field name="tutar"/>
-                                </list>
+                                </tree>
                             </field>
                         </page>
                         <page string="Özet">
@@ -77,7 +77,7 @@
         <field name="name">nakliye.hakedis.list</field>
         <field name="model">nakliye.hakedis</field>
         <field name="arch" type="xml">
-            <list string="Hakedişler">
+            <tree string="Hakedişler">
                 <field name="donem_baslangic"/>
                 <field name="donem_bitis"/>
                 <field name="nakliyeci_id"/>
@@ -87,7 +87,7 @@
                 <field name="tevkifat_tutari"/>
                 <field name="net_tutar"/>
                 <field name="durum"/>
-            </list>
+            </tree>
         </field>
     </record>
 

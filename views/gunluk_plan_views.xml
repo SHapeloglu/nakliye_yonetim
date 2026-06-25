@@ -31,7 +31,7 @@
                     <notebook>
                         <page string="Plan Satırları">
                             <field name="satir_ids">
-                                <list editable="bottom">
+                                <tree editable="bottom">
                                     <field name="arac_id"/>
                                     <field name="sofor_id"/>
                                     <field name="gorev_tipi"/>
@@ -42,7 +42,7 @@
                                     <field name="plan_km_donus"/>
                                     <field name="sefer_tipi"/>
                                     <field name="notlar"/>
-                                </list>
+                                </tree>
                             </field>
                         </page>
                     </notebook>
@@ -57,13 +57,13 @@
         <field name="name">nakliye.gunluk.plan.list</field>
         <field name="model">nakliye.gunluk.plan</field>
         <field name="arch" type="xml">
-            <list string="Günlük Planlar">
+            <tree string="Günlük Planlar">
                 <field name="tarih"/>
                 <field name="santiye_id"/>
                 <field name="saha_id"/>
                 <field name="formen_id"/>
                 <field name="durum"/>
-            </list>
+            </tree>
         </field>
     </record>
 

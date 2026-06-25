@@ -7,43 +7,51 @@
             <notebook position="inside">
                 <page string="Nakliye Bilgileri">
                     <group>
-                        <!-- Nakliye aracı tiki -->
                         <field name="nakliye_araci"/>
-                        <!-- Taşeron işçi firması tiki -->
                         <field name="taseron_isci_firmasi"/>
                     </group>
-
-                    <!-- Araç bilgileri — sadece nakliye_araci=True ise görünür -->
                     <group string="Araç Bilgileri" invisible="not nakliye_araci">
                         <field name="plaka"/>
                         <field name="kapasite_ton"/>
                         <field name="yuk_haddi_ton"/>
                         <field name="aktif_sofor" readonly="1"/>
                     </group>
-
-                    <!-- Şoför geçmişi — sadece nakliye_araci=True ise görünür -->
                     <group string="Şoför Geçmişi" invisible="not nakliye_araci">
                         <field name="sofor_gecmisi_ids" nolabel="1">
-                            <list editable="bottom">
+                            <form>
+                                <group>
+                                    <field name="sofor_adi"/>
+                                    <field name="baslangic_tarihi"/>
+                                    <field name="bitis_tarihi"/>
+                                    <field name="aktif"/>
+                                    <field name="notlar"/>
+                                </group>
+                            </form>
+                            <tree>
                                 <field name="sofor_adi"/>
                                 <field name="baslangic_tarihi"/>
                                 <field name="bitis_tarihi"/>
                                 <field name="aktif"/>
-                                <field name="notlar"/>
-                            </list>
+                            </tree>
                         </field>
                     </group>
-
-                    <!-- İşçi listesi — sadece taseron_isci_firmasi=True ise görünür -->
                     <group string="İşçi Listesi" invisible="not taseron_isci_firmasi">
                         <field name="isci_listesi_ids" nolabel="1">
-                            <list editable="bottom">
+                            <form>
+                                <group>
+                                    <field name="isci_adi"/>
+                                    <field name="baslangic_tarihi"/>
+                                    <field name="bitis_tarihi"/>
+                                    <field name="aktif"/>
+                                    <field name="notlar"/>
+                                </group>
+                            </form>
+                            <tree>
                                 <field name="isci_adi"/>
                                 <field name="baslangic_tarihi"/>
                                 <field name="bitis_tarihi"/>
                                 <field name="aktif"/>
-                                <field name="notlar"/>
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </page>

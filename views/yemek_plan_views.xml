@@ -26,7 +26,7 @@
                     <notebook>
                         <page string="Plan Satırları">
                             <field name="satir_ids">
-                            <list editable="bottom">
+                            <tree editable="bottom">
                             <field name="satir_tipi"/>
                             <!-- Firma içi işçi -->
                             <field name="isci_id"
@@ -49,7 +49,7 @@
                             invisible="satir_tipi != 'taseron_isci'"/>
                             <field name="adet"/>
                             <field name="notlar"/>
-                            </list>
+                            </tree>
                             </field>
                         </page>
                     </notebook>
@@ -64,13 +64,13 @@
         <field name="name">nakliye.yemek.plan.list</field>
         <field name="model">nakliye.yemek.plan</field>
         <field name="arch" type="xml">
-            <list string="Yemek Planları">
+            <tree string="Yemek Planları">
                 <field name="name"/>
                 <field name="santiye_id"/>
                 <field name="baslangic_tarihi"/>
                 <field name="bitis_tarihi"/>
                 <field name="aktif"/>
-            </list>
+            </tree>
         </field>
     </record>
 

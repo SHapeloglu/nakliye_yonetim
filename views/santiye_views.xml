@@ -26,11 +26,11 @@
         <field name="name">nakliye.santiye.list</field>
         <field name="model">nakliye.santiye</field>
         <field name="arch" type="xml">
-            <list string="Şantiyeler">
+            <tree string="Şantiyeler">
                 <field name="name"/>
                 <field name="kod"/>
                 <field name="aktif"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -39,7 +39,6 @@
         <field name="name">Şantiyeler</field>
         <field name="res_model">nakliye.santiye</field>
         <field name="view_mode">list,form</field>
-		 <field name="path">nakliye-santiye</field>
 
     </record>
 

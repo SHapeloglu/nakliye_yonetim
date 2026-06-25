@@ -55,7 +55,7 @@ class NakliyeAracSofor(models.Model):
         required=True,
         ondelete='cascade'
     )
-    sofor_adi = fields.Char(string='Şoför Adı', required=True)
+    sofor_adi = fields.Char(string='Şoför Adı')
     baslangic_tarihi = fields.Date(string='Başlangıç Tarihi', required=True)
     bitis_tarihi = fields.Date(string='Bitiş Tarihi')
     aktif = fields.Boolean(string='Aktif', default=True)
@@ -74,7 +74,7 @@ class NakliyeTaseronIsci(models.Model):
         ondelete='cascade'
     )
     # İşçi adı — bizim personelimiz değil, elle yazılır
-    isci_adi = fields.Char(string='İşçi Adı', required=True)
+    isci_adi = fields.Char(string='İşçi Adı')
     baslangic_tarihi = fields.Date(string='Başlangıç Tarihi', required=True)
     bitis_tarihi = fields.Date(string='Bitiş Tarihi')
     # Birden fazla işçi aynı anda aktif olabilir

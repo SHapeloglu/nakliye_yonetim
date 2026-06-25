@@ -37,7 +37,7 @@
                         <page string="Puantaj Satırları">
                             <!-- Plandan otomatik kopyalanır — formen adet değiştirebilir -->
                                     <field name="satir_ids">
-                                    <list editable="bottom">
+                                    <tree editable="bottom">
                                     <field name="satir_tipi"/>
                                     <!-- Firma içi işçi -->
                                     <field name="isci_id"
@@ -62,7 +62,7 @@
                                     <field name="yemek_bedeli"/>
                                     <field name="tutar" readonly="1"/>
                                     <field name="notlar"/>
-                                    </list>
+                                    </tree>
                                     </field>
                         </page>
                     </notebook>
@@ -77,7 +77,7 @@
         <field name="name">nakliye.yemek.puantaj.list</field>
         <field name="model">nakliye.yemek.puantaj</field>
         <field name="arch" type="xml">
-            <list string="Yemek Puantajları">
+            <tree string="Yemek Puantajları">
                 <field name="tarih"/>
                 <field name="santiye_id"/>
                 <field name="plan_id"/>
@@ -85,7 +85,7 @@
                 <field name="toplam_yemek"/>
                 <field name="toplam_tutar"/>
                 <field name="durum"/>
-            </list>
+            </tree>
         </field>
     </record>
 
