@@ -4,7 +4,7 @@
 
 - GitHub: https://github.com/SHapeloglu/nakliye_yonetim — **PUBLIC repo**
 - Sunucu: bu klasör (`/opt/odoo/custom_addons/nakliye_yonetim`) doğrudan git klonu; `odoo18-prod` (8076) ve `odoo18-test` (8074) servislerinin `addons_path`'inde.
-- Odoo 17 sürümü: ayrı repo `SHapeloglu/nakliye_yonetim_17v` (06-25'ten beri durağan).
+- Odoo 17 sürümü: `SHapeloglu/nakliye_yonetim_17v` — 2026-10-07'de arşivlendi, desteklenmiyor.
 - **Tek doğruluk kaynağı: `nakliye_yonetim_spec.md`** · Mimari: `architect.md` · Görevler: `task.md` · Fikirler: `backlog.md` · Günlük: `session.md`
 
 ## Komutlar
